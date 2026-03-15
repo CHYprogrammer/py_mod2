@@ -1,7 +1,7 @@
 #!usr/bin/env python3
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Union
+from typing import Any, List
 
 
 class DataProcessor(ABC):
@@ -41,7 +41,7 @@ class NumericProcessor(DataProcessor):
             print("Validation: unverified")
             return False
         for d in data:
-            if not isinstance(d, Union[int, float]):
+            if not isinstance(d, (int, float)):
                 print("Validation: unverified")
                 return False
         print("Validation: Numeric data verified")
