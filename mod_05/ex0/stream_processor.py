@@ -1,54 +1,119 @@
-#!usr/bin/env pythonn3
+#!usr/bin/env python3
 
 from abc import ABC, abstractmethod
+from typing import Any
 
 
 class DataProcessor(ABC):
+    name = "Data Processor"
+
     @abstractmethod
-    def process(self, data: any) -> None:
+    def process(self, data: Any) -> str:
+        # Process the data and return result string
         pass
 
     @abstractmethod
-    def validate(self, data: any) -> None:
+    def validate(self, data: Any) -> bool:
+        # Validate if data is appropriate for this processor
         pass
 
-    @abstractmethod
     def format_output(self, result: str) -> str:
-        pass
+        # Format the output string
+        return f"Output: {result}"
 
 
 class NumericProcessor(DataProcessor):
-    def process(self, data: any) -> None:
-        pass
+    name = "Numeric Processor"
 
-    def validate(selff, data: any) -> None:
-        pass
+    def process(self, data: Any) -> str:
+        print(f"Processing Data: {data}")
+        if not self.validate(data):
+            return "ERROR: Invalid input"
+        count = len(data)
+        if count == 0:
+            return "ERROR: Empty list"
+        total = sum(data)
+        avg = total / count
+        return f"Processed {count} numeric values, sum={total}, avg={avg}"
 
-    def format_output(self, result: str) -> str:
-        pass
+    def validate(self, data: Any) -> bool:
+        if not isinstance(data, list):
+            print("Validation: unverified")
+            return False
+        for d in data:
+            if not isinstance(d, (int, float)):
+                print("Validation: unverified")
+                return False
+        print("Validation: Numeric data verified")
+        return True
 
 
 class TextProcessor(DataProcessor):
-    def process(self, data: any) -> None:
-        pass
+    name = "Text Processor"
 
-    def validate(self, data: any) -> None:
-        pass
+    def process(self, data: Any) -> str:
+        print(f"Processing Data: {data}")
+        if not self.validate(data):
+            return "ERROR: Invalid input"
+        count = len(data)
+        words = len(data.split(" "))
+        return f"Processed text: {count} characters, {words} words"
 
-    def format_output(self, result: str) -> str:
-        pass
+    def validate(self, data: Any) -> bool:
+        if not isinstance(data, str):
+            print("Validation: unverified")
+            return False
+        print("Validation: Text data verified")
+        return True
 
 
 class LogProcessor(DataProcessor):
-    def process(self, data: any) -> None:
-        pass
+    name = "Log Processor"
 
-    def validate(self, data: any) -> None:
-        pass
+    def process(self, data: Any) -> str:
+        print(f"Processing Data: {data}")
+        if not self.validate(data):
+            return "ERROR: Invalid input"
+        log = data.split(":", 1)
+        if log[0] == "ERROR":
+            prefix = "ALERT"
+        else:
+            # prefix be same as log level
+            prefix = log[0]
+        return f"[{prefix}] {log[0]} level detected:{log[1]}"
 
-    def format_output(self, result: str) -> str:
-        pass
+    def validate(self, data: Any) -> bool:
+        if not isinstance(data, str):
+            print("Validation: unverified")
+            return False
+        print("Validation: Log entry verified")
+        return True
 
 
 if __name__ == "__main__":
-    
+    print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===\n")
+    process_data = [
+        (NumericProcessor(), [1, 2, 3, 4, 5]),
+        (TextProcessor(), "Hello Nexus World"),
+        (LogProcessor(), "ERROR: Connection timeout")
+    ]
+
+    for (processor, data) in process_data:
+        print(f"Initializing {processor.name}...")
+        res = processor.process(data)
+        print(processor.format_output(res))
+        print()
+
+    print("=== Polymorphic Processing Demo ===")
+    print("Processing multiple data types through same interface...")
+    demo_processors = [
+        (NumericProcessor(), [1, 2, 3]),
+        (TextProcessor(), "Hello World!"),
+        (LogProcessor(), "INFO: system ready")
+    ]
+    i = 1
+    for processor, data in demo_processors:
+        res = processor.process(data)
+        print(f"Result {i}: {processor.format_output(res)}")
+        i += 1
+    print("\nFoundation systems online. Nexus ready for advanced stream.")
