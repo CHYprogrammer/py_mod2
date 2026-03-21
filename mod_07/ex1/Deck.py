@@ -35,7 +35,8 @@ class Deck:
         spells = [1 for c in self._cards if isinstance(c, SpellCard)]
         artifacts = [1 for c in self._cards if isinstance(c, ArtifactCard)]
         total = len(self._cards)
-        avg_cost = sum(c.cost for c in self._cards) / total if total > 0 else 0.0
+        total_cost = sum(c.cost for c in self._cards)
+        avg_cost = total_cost / total if total > 0 else 0.0
         return {
             'total_cards': total,
             'creatures': len(creatures),
