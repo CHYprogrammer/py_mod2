@@ -1,4 +1,3 @@
-from typing import Dict
 from ex0.Card import Card
 
 
@@ -23,10 +22,10 @@ class CreatureCard(Card):
         return {
             'card_played': self.name,
             'mana_used': self.cost,
-            'effect': 'Creature summoned to battlefield',
+            'effect': 'Creature summoned to battlefield'
         }
 
-    def get_card_info(self) -> Dict:
+    def get_card_info(self) -> dict:
         info = super().get_card_info()
         info['type'] = 'Creature'
         info['attack'] = self.attack
@@ -39,5 +38,5 @@ class CreatureCard(Card):
             'attacker': self.name,
             'target': target_name,
             'damage_dealt': self.attack,
-            'combat_resolved': True,
+            'combat_resolved': True
         }

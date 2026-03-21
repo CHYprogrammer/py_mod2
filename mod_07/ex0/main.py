@@ -5,6 +5,7 @@ def main() -> None:
     print("\n=== DataDeck Card Foundation ===")
     print()
     print("Testing Abstract Base Class Design:")
+    print()
 
     dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
 
