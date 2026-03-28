@@ -3,8 +3,8 @@ import os
 import site
 
 
-def get_python_executable() -> str:
-    return sys.executable
+class MatrixError(Exception):
+    pass
 
 
 def detect_virtual_env() -> tuple[bool, str | None, str | None]:
@@ -68,15 +68,35 @@ def display_inside_venv(
 
 
 def main() -> None:
-    python_path = get_python_executable()
-    is_in_venv, venv_name, venv_path = detect_virtual_env()
+    in_v = sys.prefix == sys.base_prefix
+    status = "You're still plugged in" if in_v else "Welcome to the construct"
+    print(f"\nMATRIX STATUS: {status}\n")
+    print(f"Current Python: {sys.executable}")
+    env_path = os.environ.get("VIRTUAL_ENV")
+    print(f"Virtual Environment: {env_path}")
+    if env_path is None:
+        raise MatrixError
+    print(f"Environment Path: {env_path}")
+    print("\nSUCCESS: You're in an isolated environment!")
+    print("Safe to install packages without affecting")
+    print("the global system.\n")
 
-    if is_in_venv:
-        packages_path = get_site_packages_path()
-        display_inside_venv(python_path, venv_name, venv_path, packages_path)
-    else:
-        display_outside_venv(python_path)
+    package_path = sys.executable
+    print(f"Package installation path: {package_path}")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except MatrixError:
+        print("WARNING: You're in the global environment!")
+        print("The machines can see everything you install.\n")
+
+        print("To enter the construct, run:")
+        print("python -m venv matrix_env")
+        print("source matrix_env/bin/activate  # On Unix")
+        print("matrix_env")
+        print("Scripts")
+        print("activate     # On Windows\n")
+
+        print("Then run this program again.")
