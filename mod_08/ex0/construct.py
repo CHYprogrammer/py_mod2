@@ -90,13 +90,13 @@ if __name__ == "__main__":
         main()
     except MatrixError:
         print("WARNING: You're in the global environment!")
-        print("The machines can see everything you install.\n")
+        print("The machines can see everything you install.")
 
-        print("To enter the construct, run:")
+        print("\nTo enter the construct, run:")
         print("python -m venv matrix_env")
         print("source matrix_env/bin/activate  # On Unix")
         print("matrix_env")
         print("Scripts")
-        print("activate     # On Windows\n")
+        print("activate     # On Windows")
 
-        print("Then run this program again.")
+        print("\nThen run this program again.")
