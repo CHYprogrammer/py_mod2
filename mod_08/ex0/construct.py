@@ -16,11 +16,11 @@ def get_site_packages_path() -> str:
 
 
 def detect_venv() -> None:
-    in_v = sys.prefix != sys.base_prefix
+    venv_path = os.environ.get("VIRTUAL_ENV")
+    in_v = venv_path is not None
     status = "Welcome to the construct" if in_v else "You're still plugged in"
     print(f"\nMATRIX STATUS: {status}\n")
     print(f"Current Python: {sys.executable}")
-    venv_path = os.environ.get("VIRTUAL_ENV")
     if venv_path is None:
         print("Virtual Environment: None detected\n")
         raise MatrixError

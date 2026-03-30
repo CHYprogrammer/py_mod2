@@ -1,3 +1,5 @@
+package-mode = false
+
 [project]
 name = "matrix-loading"
 version = "0.1.0"
@@ -5,7 +7,7 @@ description = ""
 authors = [
     {name = "SATOSHI NAKAMOTO"}
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "pandas (>=3.0.1,<4.0.0)",
     "numpy (>=2.4.4,<3.0.0)",
