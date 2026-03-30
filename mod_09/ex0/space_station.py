@@ -32,3 +32,31 @@ def main() -> None:
         is_operational=True,
         notes="All systems nominal"
     )
+
+    status = "Operational" if station.is_operational else "Offline"
+    print("Valid station created:")
+    print(f"ID: {station.station_id}")
+    print(f"Name: {station.name}")
+    print(f"Crew: {station.crew_size} people")
+    print(f"Power: {station.power_level}%")
+    print(f"Oxygen: {station.oxygen_level}%")
+    print(f"Status: {status}")
+    print("=" * 40)
+
+    try:
+        SpaceStation(
+            station_id="BAD001",
+            name="Invalid Station",
+            crew_size=99,
+            power_level=50.0,
+            oxygen_level=80.0,
+            last_maintenance="2024-01-15T08:00:00",
+        )
+    except ValidationError as e:
+        print("Expected validation error:")
+        for error in e.errors():
+            print(error["msg"])
+
+
+if __name__ == "__main__":
+    main()
