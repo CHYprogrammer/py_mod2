@@ -22,6 +22,7 @@ def detect_venv() -> None:
     print(f"Current Python: {sys.executable}")
     venv_path = os.environ.get("VIRTUAL_ENV")
     if venv_path is None:
+        print("Virtual Environment: None detected\n")
         raise MatrixError
     venv_name = os.path.basename(venv_path)
     print(f"Virtual Environment: {venv_name}")

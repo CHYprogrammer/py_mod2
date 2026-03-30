@@ -1,18 +1,23 @@
-# meta info
-[tool.poetry]
-# name = "matrix-loading"
-# version = "1.0.0"
-# description = "Matrix data analysis"
-# authors = ["CHYprogrammer"]
-package-mode = false
+[project]
+name = "matrix-loading"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "SATOSHI NAKAMOTO"}
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pandas (>=3.0.1,<4.0.0)",
+    "numpy (>=2.4.4,<3.0.0)",
+    "matplotlib (>=3.10.8,<4.0.0)"
+]
 
-# define dependencies
-[tool.poetry.dependencies]
-python = "^3.10"
-pandas = "^2.0.0"
-numpy = "^1.24.0"
-matplotlib = "^3.7.0"
+[dependency-groups]
+dev = [
+    "flake8 (>=7.3.0,<8.0.0)"
+]
+
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
