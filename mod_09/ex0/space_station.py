@@ -53,7 +53,7 @@ def main() -> None:
         SpaceStation(
             station_id="BAD001",
             name="Invalid Station",
-            crew_size=99,
+            crew_size=99,  # invalid input
             power_level=50.0,
             oxygen_level=80.0,
             last_maintenance=datetime(2024, 1, 15, 8, 0, 0),
