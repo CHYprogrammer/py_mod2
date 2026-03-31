@@ -1,6 +1,6 @@
 import functools
 import operator
-from typing import Callable
+from typing import Callable, Any
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
@@ -33,7 +33,7 @@ def memoized_fibonacci(n: int) -> int:  # typo in docment??
 
 def spell_dispatcher() -> Callable:
     @functools.singledispatch
-    def dispatch(spell) -> str:
+    def dispatch(spell: Any) -> str:
         return f"Unknown spell type: {spell}"
 
     @dispatch.register(int)
@@ -52,6 +52,9 @@ def spell_dispatcher() -> Callable:
 
 
 if __name__ == "__main__":
+    def base_enchantment(power: int, element: str, target: str) -> str:
+        return f"{element} {target} (power: {power})"
+
     spells = [10, 20, 30, 40]
     print("\nTesting spell reducer...")
     print(f"Sum: {spell_reducer(spells, 'add')}")
@@ -67,3 +70,9 @@ if __name__ == "__main__":
     print(dispatch(42))
     print(dispatch("fireball"))
     print(dispatch(["fire", "ice", "lightning"]))
+
+    print("\nTesting partial enchanter...")
+    enchanters = partial_enchanter(base_enchantment)
+    print(enchanters["fire_enchant"](target="Sword"))
+    print(enchanters["ice_enchant"](target="Shield"))
+    print(enchanters["lightning_enchant"](target="Staff"))

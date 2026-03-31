@@ -19,7 +19,6 @@ def power_validator(min_power: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            # args[0] は self、args[1] は spell_name、args[2] は power
             power = args[2] if len(args) > 2 else kwargs.get('power', 0)
             if power < min_power:
                 return "Insufficient power for this spell"
@@ -59,9 +58,36 @@ if __name__ == "__main__":
         time.sleep(0.1)
         return "Fireball cast!"
 
-    print("Testing spell timer...")
+    print("\nTesting spell timer...")
     result = fireball()
     print(f"Result: {result}")
+
+    print("\nTesting power validator...")
+
+    @power_validator(min_power=10)
+    def cast(power: int) -> str:
+        return f"Cast with {power} power"
+
+    print(cast(15))   # 有効
+    print(cast(5))    # 無効
+
+    print("\nTesting retry spell...")
+
+    def make_unstable_spell(succeed_on: int) -> Callable:
+        count = 0
+
+        @retry_spell(max_attempts=3)
+        def unstable_spell() -> str:
+            nonlocal count
+            count += 1
+            if count < succeed_on:
+                raise Exception("Spell unstable!")
+            return "Spell succeeded!"
+
+        return unstable_spell
+
+    unstable = make_unstable_spell(succeed_on=3)
+    print(unstable())
 
     print("\nTesting MageGuild...")
     guild = MageGuild()

@@ -52,7 +52,7 @@ if __name__ == "__main__":
     flaming = enchantment_factory("Flaming")
     frozen = enchantment_factory("Frozen")
     print(flaming("Sword"))
-    print(frozen("Sheild"))
+    print(frozen("Shield"))
 
     print("\nTesting spell accumulator...")
     accumulate = spell_accumulator(100)
