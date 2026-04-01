@@ -19,7 +19,7 @@ def power_validator(min_power: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            power = args[2] if len(args) > 2 else kwargs.get('power', 0)
+            power = kwargs.get('power', 0)
             if power < min_power:
                 return "Insufficient power for this spell"
             return func(*args, **kwargs)
@@ -68,8 +68,8 @@ if __name__ == "__main__":
     def cast(power: int) -> str:
         return f"Cast with {power} power"
 
-    print(cast(15))   # 有効
-    print(cast(5))    # 無効
+    print(cast(power=15))   # 有効
+    print(cast(power=5))    # 無効
 
     print("\nTesting retry spell...")
 
